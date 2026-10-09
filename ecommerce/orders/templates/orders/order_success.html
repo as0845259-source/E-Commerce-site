@@ -1,0 +1,50 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Order Placed{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'orders/css/success.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="success-box mb-4">
+        <div class="success-icon">&#10003;</div>
+        <h3 class="fw-bold">Thank you! Your order has been placed.</h3>
+        <p class="text-muted mb-3">We will contact you soon.</p>
+        <span class="order-number">Order #{{ order.id }}</span>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-5">
+            <div class="detail-box">
+                <h5>Delivery Details</h5>
+                <p class="mb-1"><strong>Naam:</strong> {{ order.full_name }}</p>
+                <p class="mb-1"><strong>Phone:</strong> {{ order.phone }}</p>
+                <p class="mb-0"><strong>Address:</strong> {{ order.address }}</p>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="detail-box">
+                <h5>Order Items</h5>
+                {% for item in order.items.all %}
+                    <div class="item-row">
+                        <span>{{ item.product.name }} x {{ item.quantity }}</span>
+                        <span>Rs. {{ item.price }}</span>
+                    </div>
+                {% endfor %}
+
+                <div class="order-total">
+                    <span>Total</span>
+                    <span>Rs. {{ order.total }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'home' %}" class="btn btn-primary rounded-pill px-4">Continue Shopping</a>
+        <a href="{% url 'my_orders' %}" class="btn btn-outline-primary rounded-pill px-4">My Orders</a>
+    </div>
+{% endblock %}

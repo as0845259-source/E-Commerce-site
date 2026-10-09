@@ -1,0 +1,39 @@
+{% extends "store/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h2 class="mb-4">Our Products</h2>
+
+    <div class="mb-4">
+        <a href="{% url 'home' %}"
+        class="btn rounded-pill {% if not active_category %}btn-dark{% else %}btn-outline-dark{% endif %}">All</a>
+
+        {% for category in categories %}
+            <a href="{% url 'category' category.slug %}"
+            class="btn rounded-pill {% if category.slug == active_category %}btn-dark{% else %}btn-outline-dark{% endif %}">{{ category.name }}</a>
+        {% endfor %}
+    </div>
+    <div class="row">
+    {% for product in products %}
+        <div class="col-6 col-md-4 col-lg-3 mb-4">
+            <div class="card product-card h-100">
+                <a href="{% url 'product_details' product.slug %}" class="product-img-wrap">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                </a>
+                <div class="card-body d-flex flex-column">
+                    <small class="product-category">{{ product.category.name }}</small>
+                    <h6 class="product-name">{{ product.name }}</h6>
+                    <p class="product-price">Rs. {{ product.price }}</p>
+
+                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary rounded-pill w-100 mt-auto">Add to Cart</a>
+                    <a href="{% url 'product_details' product.slug %}" class="details-link">View Details</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">There are currently no products in this category.</p>
+    {% endfor %}
+</div>
+   
+{% endblock %}

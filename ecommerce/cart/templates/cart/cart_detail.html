@@ -1,0 +1,60 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Cart{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'cart/css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h2 class="page-title mb-4">Your Cart</h2>
+
+    {% if items %}
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="cart-box">
+                    {% for item in items %}
+                        <div class="cart-item">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-thumb">
+
+                            <div class="cart-info">
+                                <h6 class="mb-1">{{ item.product.name }}</h6>
+                                <small class="text-muted">Rs. {{ item.product.price }}</small>
+
+                                <div class="qty-box mt-2">
+                                    <a href="{% url 'decrease_quantity' item.product.id %}">-</a>
+                                    <span>{{ item.quantity }}</span>
+                                    <a href="{% url 'increase_quantity' item.product.id %}">+</a>
+                                </div>
+                            </div>
+
+                            <div class="text-end">
+                                <div class="cart-subtotal">Rs. {{ item.subtotal }}</div>
+                                <a href="{% url 'remove_from_cart' item.product.id %}" class="remove-link">Remove</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="summary-box">
+                    <h5 class="mb-3">Order Summary</h5>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Total</span>
+                        <strong class="summary-total">Rs. {{ total }}</strong>
+                    </div>
+                    <a href="{% url 'checkout' %}" class="btn btn-primary rounded-pill w-100">Proceed to Checkout</a>
+                    <a href="{% url 'home' %}" class="details-link">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="empty-cart text-center">
+            <h5>Your cart is empty.</h5>
+            <p class="text-muted">Add some products and come back.</p>
+            <a href="{% url 'home' %}" class="btn btn-primary rounded-pill px-4">Continue Shopping</a>
+        </div>
+    {% endif %}
+{% endblock %}

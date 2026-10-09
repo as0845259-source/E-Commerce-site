@@ -1,0 +1,41 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}My Orders{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'orders/css/my_orders.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h2 class="orders-title mb-4">My Orders</h2>
+
+    {% for order in orders %}
+        <div class="order-card">
+            <div class="order-head">
+                <span class="order-id">Order #{{ order.id }}</span>
+                <span class="order-date">{{ order.created_at|date:"d M Y, h:i A" }}</span>
+            </div>
+
+            <div class="order-body">
+                {% for item in order.items.all %}
+                    <div class="order-line">
+                        <span>{{ item.product.name }} x {{ item.quantity }}</span>
+                        <span>Rs. {{ item.price }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="order-foot">
+                <span>Total</span>
+                <span>Rs. {{ order.total }}</span>
+            </div>
+        </div>
+    {% empty %}
+        <div class="no-orders">
+            <h5>You haven’t placed any order yet.</h5>
+            <p class="text-muted">Choose something you like and place your first order!</p>
+            <a href="{% url 'home' %}" class="btn btn-primary rounded-pill px-4">Start Shopping</a>
+        </div>
+    {% endfor %}
+{% endblock %}

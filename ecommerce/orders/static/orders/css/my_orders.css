@@ -1,0 +1,64 @@
+.orders-title {
+    font-weight: 700;
+}
+
+.order-card {
+    background: #fff;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+.order-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: #fafafa;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.order-id {
+    font-weight: 700;
+}
+
+.order-date {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.order-body {
+    padding: 8px 20px;
+}
+
+.order-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.order-line:last-child {
+    border-bottom: none;
+}
+
+.order-foot {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-top: 1px solid #f0f0f0;
+    font-weight: 700;
+}
+
+.order-foot span:last-child {
+    color: var(--primary-dark);
+}
+
+.no-orders {
+    background: #fff;
+    border-radius: 16px;
+    padding: 48px 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}

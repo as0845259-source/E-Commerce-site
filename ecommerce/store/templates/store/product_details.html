@@ -1,0 +1,32 @@
+{% extends "store/base.html" %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+    <nav class="mb-3">
+        <a href="{% url 'home' %}" class="details-link text-start d-inline">&larr; Back to products</a>
+    </nav>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="detail-img-box">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <small class="product-category">{{ product.category.name }}</small>
+            <h2 class="detail-title">{{ product.name }}</h2>
+            <p class="detail-price">Rs. {{ product.price }}</p>
+
+            <hr>
+
+            <h6 class="fw-semibold">Description</h6>
+            <p class="detail-desc">{{ product.description }}</p>
+
+
+            <a href="{% url "add_to_cart" product.id %}" class="btn btn-primary rounded-pill px-4 flex-fill">Add to Cart</a>
+            <a href="{% url 'home' %}" class="btn btn-outline-primary rounded-pill px-4">Back</a>
+        </div>
+    </div>
+{% endblock %}

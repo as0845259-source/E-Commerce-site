@@ -1,0 +1,40 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-lg-4">
+            <div class="auth-box">
+                <h3 class="auth-title">Welcome Back</h3>
+                <p class="auth-sub">Log in to your account.</p>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary rounded-pill w-100">Login</button>
+                </form>
+
+                <p class="auth-switch">Don’t have an account?<a href="{% url 'signup' %}">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
