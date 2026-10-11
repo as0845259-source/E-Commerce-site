@@ -18,9 +18,27 @@
         <div class="container">
             <a class="navbar-brand brand-logo" href="{% url 'home' %}">My <span>Store</span></a>
 
-            <div class="d-flex align-items-center gap-3">
-                {% if user.is_authenticated %}
-                    <span class="nav-user">{{ user.username }}</span>
+
+
+            <form class="search-form d-none d-md-flex" action="{% url 'home' %}" method="get">
+                 <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Search products...">
+                 <button type="submit" class="search-btn">Search</button>
+            </form>
+
+                <div class="d-flex align-items-center gap-3">
+                 {% if user.is_authenticated %}
+                                    <div class="dropdown">
+                    <a class="nav-link-simple dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                    <ul class="dropdown-menu category-menu">
+                        <li><a class="dropdown-item" href="{% url "home" %}">All Products</a></li>
+                     {% for category in nav_categories %}
+                            <li>
+                                <a class="dropdown-item  {% if category.slug == active_category %}active{% endif %}" href="{% url 'category' category.slug %}">{{ category.name }}</a>
+                         </li>
+                    {% endfor %}     
+                    </ul>
+
+                </div>
                     <a href="{% url 'my_orders' %}" class="nav-link-simple">My Orders</a>
                     <a href="{% url 'cart_detail' %}" class="nav-link-simple">
                         Cart <span class="cart-badge">{{ cart_count }}</span>

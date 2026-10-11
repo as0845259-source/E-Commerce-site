@@ -12,6 +12,11 @@ def home(request, category_slug=None):
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
+        
+    query = request.GET.get('q' , '').strip()
+    if query:
+        products = products.filter(name__icontains=query)
+            
 
     return render(request, 'store/home.html', {
         'products': products,
