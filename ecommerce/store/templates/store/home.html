@@ -2,6 +2,13 @@
 
 {% block title %}Home{% endblock %}
 
+{% block search %}
+    <form class="search-form d-none d-md-flex" action="{% url 'home' %}" method="get">
+        <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Search products...">
+        <button type="submit" class="search-btn">Search</button>
+    </form>
+{% endblock %}
+
 {% block content %}
     <h2 class="mb-4">Our Products</h2>
 

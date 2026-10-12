@@ -18,12 +18,8 @@
         <div class="container">
             <a class="navbar-brand brand-logo" href="{% url 'home' %}">My <span>Store</span></a>
 
+            {% block search %}{% endblock %}
 
-
-            <form class="search-form d-none d-md-flex" action="{% url 'home' %}" method="get">
-                 <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Search products...">
-                 <button type="submit" class="search-btn">Search</button>
-            </form>
 
                 <div class="d-flex align-items-center gap-3">
                  {% if user.is_authenticated %}
